@@ -1,0 +1,16 @@
+name: dev-tools/quarkus-angular-node20-java21
+from: quay.io/cgruver0/che/workspace-base:latest
+version: latest
+packages:
+  manager: microdnf
+  manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
+modules:
+  repositories:
+  - path: "../modules"
+  install:
+  - name: node20
+  - name: angular
+  - name: java21
+  - name: maven
+  - name: quarkus
+  - name: mandrel-java21

@@ -1,0 +1,14 @@
+name: dev-tools/cassandra
+from: registry.access.redhat.com/ubi9-minimal
+version: ubi9
+packages:
+  manager: microdnf
+  manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
+modules:
+  repositories:
+  - path: "../modules"
+  install:
+  - name: cassandra
+run:
+  entrypoint:
+  - "/entrypoint.sh"

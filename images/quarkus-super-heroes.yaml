@@ -1,0 +1,17 @@
+name: dev-tools/dev-workspace-quarkus-super-heroes
+from: quay.io/cgruver0/che/workspace-base:latest
+version: ubi9
+packages:
+  manager: microdnf
+  manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
+modules:
+  repositories:
+  - path: "../modules"
+  install:
+  - name: ansible
+  - name: java17
+  - name: node18
+  - name: maven
+  - name: quarkus
+
+

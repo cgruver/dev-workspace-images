@@ -1,0 +1,6 @@
+schema_version: 1
+name: operator-sdk
+version: v1.0
+description: "Installs the Operator SDK"
+execute:
+- script: install.sh

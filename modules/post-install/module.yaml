@@ -1,0 +1,6 @@
+schema_version: 1
+name: post-install
+version: v1.0
+description: "Final Tasks"
+execute:
+- script: post-install.sh
