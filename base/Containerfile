@@ -14,7 +14,8 @@ RUN microdnf --disableplugin=subscription-manager install -y ${INSTALL_PACKAGES}
   microdnf clean all ; \
   mkdir -p /usr/local/bin ; \
   mkdir -p ${WORK_DIR} ; \
-  pip3 install podman-compose ; \
+  pip3 install -U podman-compose ; \
+  pip3 install -U cekit ; \
   chgrp -R 0 /home ; \
   chmod -R g=u /home ${WORK_DIR} ; \
   chmod +x /entrypoint.sh ; \
