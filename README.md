@@ -17,6 +17,8 @@ cekit --descriptor images/node20.yaml build podman --tag quay.io/cgruver0/che/no
 cekit --descriptor images/cajun-navy.yaml build podman --tag quay.io/cgruver0/che/cajun-navy:latest
 
 cekit --descriptor images/cassandra.yaml build podman --tag quay.io/cgruver0/che/cassandra-5:latest
+
+cekit --descriptor images/dot-net.yaml build podman --tag quay.io/cgruver0/che/dot-net:latest
 ```
 
 ## Local Nexus
@@ -24,4 +26,7 @@ cekit --descriptor images/cassandra.yaml build podman --tag quay.io/cgruver0/che
 ```bash
 cekit --descriptor images/cajun-navy.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/cajun-navy:latest
 podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cajun-navy:latest
+
+cekit --descriptor images/cassandra.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/cassandra-5:latest
+podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cassandra-5:latest
 ```

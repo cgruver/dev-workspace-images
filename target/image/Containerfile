@@ -1,0 +1,57 @@
+
+# This is a Dockerfile for the dev-tools/dot-net:latest image.
+
+
+## START target image dev-tools/dot-net:latest
+## \
+    FROM quay.io/cgruver0/che/workspace-base:latest
+
+
+    USER root
+
+###### START module 'dot-net:v1.0'
+###### \
+        # Switch to 'root' user for package management for 'dot-net' module defined packages
+        USER root
+        # Install packages defined in the 'dot-net' module
+        RUN microdnf --disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0 install -y dotnet-hostfxr-9.0 dotnet-runtime-9.0 dotnet-sdk-9.0 \
+            && microdnf clean all \
+            && rpm -q dotnet-hostfxr-9.0 dotnet-runtime-9.0 dotnet-sdk-9.0
+###### /
+###### END module 'dot-net:v1.0'
+
+###### START module 'node20:v1.0'
+###### \
+        # Copy 'node20' module content
+        COPY modules/node20 /tmp/scripts/node20
+        ARG NODE_VERSION="v20.17.0"
+
+        # Set 'node20' module defined environment variables
+        ENV \
+            PATH="${PATH}:/usr/local/node/bin"
+        # Custom scripts from 'node20' module
+        USER root
+        RUN [ "sh", "-x", "/tmp/scripts/node20/install.sh" ]
+###### /
+###### END module 'node20:v1.0'
+
+###### START image 'dev-tools/dot-net:latest'
+###### \
+        # Set 'dev-tools/dot-net' image defined labels
+        LABEL \
+            io.cekit.version="4.14.0"
+###### /
+###### END image 'dev-tools/dot-net:latest'
+
+
+
+    # Switch to 'root' user and remove artifacts and modules
+    USER root
+    RUN rm -rf "/tmp/scripts" "/tmp/artifacts"
+    # Clear package manager metadata
+    RUN rm -rf "/var/cache/yum" "/var/lib/dnf" "/var/cache/apt" "/var/cache/dnf"
+
+    # Define the user
+    USER root
+## /
+## END target image

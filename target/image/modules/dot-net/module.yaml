@@ -1,0 +1,23 @@
+args: []
+artifacts: []
+description: Installs Dot Net 9
+envs: []
+execute: []
+labels: []
+modules:
+  install: []
+  repositories: []
+name: dot-net
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  install:
+  - dotnet-hostfxr-9.0
+  - dotnet-runtime-9.0
+  - dotnet-sdk-9.0
+  repositories: []
+ports: []
+schema_version: 1
+version: v1.0
+volumes: []

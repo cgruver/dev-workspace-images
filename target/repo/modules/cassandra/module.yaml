@@ -1,0 +1,33 @@
+schema_version: 1
+name: cassandra
+version: v1.0
+description: "Cassandra Image for Workspace"
+artifacts:
+- name: entrypoint
+  path: entrypoint.sh
+  target: entrypoint.sh
+- name: cass-config
+  path: cassandra.yaml
+  target: cassandra.yaml
+args:
+- name: CASSANDRA_VERSION
+  value: 5.0.2
+envs:
+- name: CASSANDRA_HOME
+  value: /usr/local/apache-cassandra
+- name: HOME
+  value: /home/cassandra
+- name: PATH
+  value: ${PATH}:/usr/local/apache-cassandra/bin
+packages:
+  install:
+  - procps-ng 
+  - util-linux
+  - java-17-openjdk-devel 
+  - tar
+  - gzip
+  - bash 
+  - vim-enhanced
+  - vim-minimal
+execute:
+- script: install.sh

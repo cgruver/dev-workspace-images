@@ -1,0 +1,9 @@
+schema_version: 1
+name: localstack
+version: v1.0
+description: "Installs Localstack"
+args:
+- name: LOCALSTACK_VERSION
+  value: 2.2.0
+execute:
+- script: install.sh

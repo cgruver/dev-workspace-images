@@ -1,13 +1,15 @@
-FROM registry.access.redhat.com/ubi9-minimal
+# FROM registry.access.redhat.com/ubi9-minimal
+FROM quay.io/fedora/fedora:41
 
 ARG USER_HOME_DIR="/home/user"
 ARG WORK_DIR="/projects"
-ARG INSTALL_PACKAGES="procps-ng openssl git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker glibc-devel zlib-devel gcc libffi-devel libstdc++-devel libstdc++ gcc-c++ glibc-langpack-en ca-certificates python3-pip python3-devel fuse-overlayfs util-linux vim-minimal vim-enhanced"
+ARG INSTALL_PACKAGES="procps-ng openssl git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker glibc-devel zlib-devel gcc libffi-devel libstdc++-devel gcc-c++ glibc-langpack-en ca-certificates python3-pip python3-devel fuse-overlayfs util-linux vim-minimal vim-enhanced dotnet-hostfxr-9.0 dotnet-runtime-9.0 dotnet-sdk-9.0 powershell-lts"
 
 ENV HOME=${USER_HOME_DIR}
 ENV BUILDAH_ISOLATION=chroot
 
 COPY --chown=0:0 entrypoint.sh /
+COPY ms-rpm.repo /etc/yum.repos.d/ms-rpm.repo
 
 RUN microdnf --disableplugin=subscription-manager install -y ${INSTALL_PACKAGES}; \
   microdnf update -y ; \
