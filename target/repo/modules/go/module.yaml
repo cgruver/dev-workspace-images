@@ -1,9 +1,0 @@
-schema_version: 1
-name: go
-version: v1.0
-description: "Installs the Go programming language"
-args:
-- name: GO_VERSION
-  value: 1.21.6
-execute:
-- script: install.sh
