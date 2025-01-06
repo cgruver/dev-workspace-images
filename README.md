@@ -19,6 +19,9 @@ cekit --descriptor images/cajun-navy.yaml build podman --tag quay.io/cgruver0/ch
 cekit --descriptor images/cassandra.yaml build podman --tag quay.io/cgruver0/che/cassandra-5:latest
 
 cekit --descriptor images/dot-net.yaml build podman --tag quay.io/cgruver0/che/dot-net:latest
+
+cekit --descriptor images/lambda-dev.yaml build podman --tag quay.io/cgruver0/che/lambda-dev:latest
+
 ```
 
 ## Local Nexus

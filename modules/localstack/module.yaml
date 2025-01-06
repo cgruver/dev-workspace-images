@@ -4,6 +4,6 @@ version: v1.0
 description: "Installs Localstack"
 args:
 - name: LOCALSTACK_VERSION
-  value: 2.2.0
+  value: 4.0.3
 execute:
 - script: install.sh
