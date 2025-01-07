@@ -4,6 +4,9 @@ version: latest
 packages:
   manager: microdnf
   manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
+args:
+- name: NODE_VERSION
+  value: v18.20.5
 modules:
   repositories:
   - path: "../modules"

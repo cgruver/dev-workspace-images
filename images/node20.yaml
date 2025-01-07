@@ -4,11 +4,14 @@ version: latest
 packages:
   manager: microdnf
   manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
+args:
+- name: NODE_VERSION
+  value: v20.18.1
 modules:
   repositories:
   - path: "../modules"
   install:
-  - name: node20
+  - name: nodeJS
   - name: angular
   - name: yarn
 
