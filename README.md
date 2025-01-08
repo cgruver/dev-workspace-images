@@ -1,6 +1,8 @@
 # dev-workspace-images
 Custom images for OpenShift Dev Spaces
 
+__Note:__ These images are built from a base image that assumes cluster changes have been made to support nested containers.  See: https://github.com/cgruver/ocp-4-17-nested-container-tech-preview
+
 ```bash
 podman build -t quay.io/cgruver0/che/workspace-base:latest ./base
 
