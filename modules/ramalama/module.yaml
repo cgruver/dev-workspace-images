@@ -1,0 +1,11 @@
+schema_version: 1
+name: ramalama
+version: v1.0
+description: "Installs AWS CLI"
+packages:
+  install:
+  - gcc-c++ 
+  - cmake
+  - golang
+execute:
+- script: install.sh

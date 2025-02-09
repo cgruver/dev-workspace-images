@@ -1,0 +1,16 @@
+schema_version: 1
+name: kernel-devel
+version: v1.0
+description: "Installs Tooling and source for kernel development"
+packages:
+  install:
+  - cmake
+  - libgudev-devel
+  - kernel-devel
+  - glibc-devel
+  - zlib-devel
+  - gcc 
+  - libffi-devel 
+  - libstdc++-devel 
+  - gcc-c++ 
+  - glibc-langpack-en 

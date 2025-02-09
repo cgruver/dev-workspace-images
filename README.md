@@ -24,6 +24,8 @@ cekit --descriptor images/dot-net.yaml build podman --tag quay.io/cgruver0/che/d
 
 cekit --descriptor images/lambda-dev.yaml build podman --tag quay.io/cgruver0/che/lambda-dev:latest
 
+cekit --descriptor images/ramalama-dev.yaml build podman --tag quay.io/cgruver0/che/ramalama-dev:latest
+
 ```
 
 ## Local Nexus

@@ -1,0 +1,66 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: devworkspace-pruner
+  namespace: openshift-operators
+spec:
+  schedule: "0 0 1 * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes: 
+          - name: script
+            configMap:
+              name: devworkspace-pruner
+              defaultMode: 0555
+              items:
+              - key: devworkspace-pruner
+                path: devworkspace-pruner.sh
+          restartPolicy: OnFailure
+          serviceAccount: devworkspace-controller-serviceaccount
+          containers:
+          - name: openshift-cli
+            image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+            env:
+            - name: RETAIN_TIME
+              # 30 days
+              value: "2592000"
+            command:
+            - /script/devworkspace-pruner.sh
+            resources:
+              requests:
+                cpu: 100m
+                memory: 64Mi
+              limits:
+                cpu: 100m
+                memory: 64Mi
+            volumeMounts:
+            - mountPath: /script
+              name: script
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devworkspace-pruner
+  namespace: openshift-operators
+data:
+  devworkspace-pruner: |
+    #!/usr/bin/env bash
+    current_time=$(date +%s)
+    for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
+    do
+      for workspace in $(oc get devworkspaces -n ${namespace} -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+      do
+        last_start=$(date -d$(oc get devworkspace ${workspace} -n ${namespace} -o go-template='{{range .status.conditions}}{{if eq .type "Started"}}{{.lastTransitionTime}}{{end}}{{end}}') +%s)
+        workspace_age=$(( ${current_time} - ${last_start} ))
+        if [[ ${workspace_age} -gt  ${RETAIN_TIME} ]]
+        then
+          echo "Removing workspace: ${workspace} in ${namespace}"
+          oc delete devworkspace ${workspace} -n ${namespace}
+        fi
+      done
+    done
