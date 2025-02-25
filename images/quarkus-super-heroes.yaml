@@ -13,7 +13,7 @@ modules:
   install:
   - name: ansible
   - name: java17
-  - name: node18
+  - name: nodeJS
   - name: maven
   - name: quarkus
 

@@ -12,7 +12,7 @@ modules:
   - path: "../modules"
   install:
   - name: base
-  - name: node18
+  - name: nodeJS
   - name: angular
   - name: java17
   - name: maven
