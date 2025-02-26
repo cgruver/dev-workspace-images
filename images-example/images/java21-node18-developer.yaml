@@ -1,21 +1,16 @@
-name: dev-tools/lambda-dev
-from: quay.io/cgruver0/che/workspace-base:latest
+name: java21-node18-developer-workspace
+from: my.org.registry/images/common-base:latest
 version: latest
 packages:
-  manager: dnf
+  manager: microdnf
   manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
-args:
-- name: NODE_VERSION
-  value: v20.18.1
 modules:
   repositories:
   - path: "../modules"
   install:
-  - name: nodeJS
+  - name: node18
   - name: angular
   - name: java21
   - name: maven
   - name: quarkus
   - name: mandrel-java21
-  - name: aws-cli
-  - name: localstack

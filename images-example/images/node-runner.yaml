@@ -1,11 +1,11 @@
-name: dev-tools/kernel-devel
-from: quay.io/cgruver0/che/workspace-base:latest
+name: node-runner
+from: my.org.registry/images/common-base:latest
 version: latest
 packages:
-  manager: dnf
+  manager: microdnf
   manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
 modules:
   repositories:
   - path: "../modules"
   install:
-  - name: kernel-devel
+  - name: nginx

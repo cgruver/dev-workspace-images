@@ -2,7 +2,7 @@ name: dev-tools/cajun-navy
 from: quay.io/cgruver0/che/workspace-base:latest
 version: latest
 packages:
-  manager: microdnf
+  manager: dnf
   manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
 args:
 - name: NODE_VERSION
