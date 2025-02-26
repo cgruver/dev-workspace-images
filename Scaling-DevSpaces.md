@@ -49,6 +49,8 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
     1. Configure you cluster so that the Operator Lifecycle Manager does not copy Cluster Service Version objects into every managed namespace.
        
        [Disabling Copied CSVs](https://docs.openshift.com/container-platform/4.18/operators/admin/olm-config.html#olm-disabling-copied-csvs_olm-config)
+* Use a `per-workspace` storage strategy instead of `per-user`
+  * A `per-workspace` strategy will make more efficient use of storage because PVCs will be lifecycled with workspaces.  The trade-off will be the number of PVC created and destroyed.  Ensure that your storage provisioner can handle the expected load.
 
 ## Recovering from Disaster
 
