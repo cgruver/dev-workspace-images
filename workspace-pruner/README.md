@@ -72,7 +72,7 @@ metadata:
 data:
   devworkspace-pruner: |
     current_time=$(date +%s)
-    for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
+    for namespace in $(oc get namespaces -l app.kubernetes.io/component=workspaces-namespace -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
     do
       for workspace in $(oc get devworkspaces -n ${namespace} -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
       do
@@ -122,4 +122,17 @@ spec:
                 limits:
                   cpu: 100m
                   memory: 64Mi
+```
+
+```
+#!/usr/bin/env bash
+
+for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
+do
+    let ws_count=$(oc get devworkspace --no-headers -n ${namespace} | wc -l)
+    if [[ ${ws_count} -eq 0 ]]
+    then
+      oc delete projects ${namespace}
+    fi
+done
 ```
