@@ -51,7 +51,7 @@ data:
   devworkspace-pruner: |
     #!/usr/bin/env bash
     current_time=$(date +%s)
-    for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
+    for namespace in $(oc get namespaces -l app.kubernetes.io/component=workspaces-namespace  -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' )
     do
       for workspace in $(oc get devworkspaces -n ${namespace} -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
       do
@@ -63,4 +63,11 @@ data:
           oc delete devworkspace ${workspace} -n ${namespace}
         fi
       done
+      let ws_count=$(oc get devworkspace --no-headers -n ${namespace} | wc -l)
+      if [[ ${ws_count} -eq 0 ]]
+      then
+        echo "Removing empty Dev Spaces User Namespace: ${namespace}"
+        oc delete projects ${namespace}
+      fi
     done
+    

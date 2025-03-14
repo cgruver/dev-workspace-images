@@ -3,6 +3,10 @@
 		{
 			"name": "dev-workspace-images",
 			"path": "/projects/dev-workspace-images"
+		},
+		{
+			"name": "enterprise-container-image-management",
+			"path": "/projects/enterprise-container-image-management"
 		}
 	],
 	"extensions": {

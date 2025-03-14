@@ -11,6 +11,13 @@ projects:
       checkoutFrom:
         remote: origin
         revision: main
+  - name: enterprise-container-image-management
+    git:
+      remotes:
+        origin: https://github.com/cgruver/enterprise-container-image-management.git
+      checkoutFrom:
+        remote: origin
+        revision: main
 components:
 - name: dev-tools
   attributes:

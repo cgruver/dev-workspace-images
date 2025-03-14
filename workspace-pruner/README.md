@@ -2,7 +2,7 @@
 
 ```bash
 current_time=$(date +%s)
-for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
+for namespace in $(oc get namespaces -l app.kubernetes.io/component=workspaces-namespace -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' )
 do
   for workspace in $(oc get devworkspaces -n ${namespace} -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
   do
@@ -15,7 +15,7 @@ do
   done
 done
 
-current_time=$(date +%s); for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces"); do for workspace in $(oc get devworkspaces -n ${namespace} -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'); do last_start=$(date -d$(oc get devworkspace ${workspace} -n ${namespace} -o go-template='{{range .status.conditions}}{{if eq .type "Started"}}{{.lastTransitionTime}}{{end}}{{end}}') +%s); workspace_age=$(( ${current_time} - ${last_start} )); if [[ ${workspace_age} -gt  ${RETAIN_TIME} ]]; then echo "Removing workspace: ${workspace}"; fi; done; done
+current_time=$(date +%s); for namespace in $(oc get namespaces -l app.kubernetes.io/component=workspaces-namespace -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces"); do for workspace in $(oc get devworkspaces -n ${namespace} -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'); do last_start=$(date -d$(oc get devworkspace ${workspace} -n ${namespace} -o go-template='{{range .status.conditions}}{{if eq .type "Started"}}{{.lastTransitionTime}}{{end}}{{end}}') +%s); workspace_age=$(( ${current_time} - ${last_start} )); if [[ ${workspace_age} -gt  ${RETAIN_TIME} ]]; then echo "Removing workspace: ${workspace}"; fi; done; done
 
 ```
 
@@ -127,7 +127,7 @@ spec:
 ```
 #!/usr/bin/env bash
 
-for namespace in $(oc get namespaces -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
+for namespace in $(oc get namespaces -l app.kubernetes.io/component=workspaces-namespace -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep ".-devspaces")
 do
     let ws_count=$(oc get devworkspace --no-headers -n ${namespace} | wc -l)
     if [[ ${ws_count} -eq 0 ]]

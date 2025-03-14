@@ -35,7 +35,8 @@ RUN dnf --disableplugin=subscription-manager install -y ${INSTALL_PACKAGES}; \
   chmod -R g=u /etc/subuid /etc/subgid ; \
   # Create Sym Links for OpenShift CLI (Assumed to be retrieved by an init-container)
   ln -s /projects/bin/oc /usr/local/bin/oc ; \
-  ln -s /projects/bin/kubectl /usr/local/bin/kubectl
+  ln -s /projects/bin/kubectl /usr/local/bin/kubectl ; \
+  touch /etc/cve-fix
 
 USER 1000
 WORKDIR ${WORK_DIR}
