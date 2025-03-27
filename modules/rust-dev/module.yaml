@@ -1,0 +1,33 @@
+name: cdev
+version: v1.0
+description: "Installs C/C++ Dev Tooling"
+packages:
+  install:
+  - zlib-devel 
+  - libffi-devel 
+  - libstdc++-devel 
+  - glibc-langpack-en 
+  - ca-certificates
+  - autoconf
+  - automake
+  - binutils
+  - bison
+  - flex
+  - gcc
+  - gcc-c++
+  - gdb
+  - glibc-devel
+  - libtool
+  - make
+  - pkgconf
+  - pkgconf-m4
+  - pkgconf-pkg-config
+  - strace
+  - cmake
+  - webkit2gtk3-devel
+  - openssl-devel
+  - curl
+  - wget
+  - libappindicator-gtk3
+  - librsvg2-devel
+  - jq

@@ -1,0 +1,6 @@
+schema_version: 1
+name: epel
+version: v1.0
+description: "EPEL Packages"
+execute:
+- script: install.sh

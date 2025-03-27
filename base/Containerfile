@@ -9,7 +9,8 @@ ENV BUILDAH_ISOLATION=chroot
 
 COPY --chown=0:0 entrypoint.sh /
 
-RUN dnf --disableplugin=subscription-manager install -y ${INSTALL_PACKAGES}; \
+RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm ; \
+  dnf install -y ${INSTALL_PACKAGES} ; \
   dnf update -y ; \
   dnf clean all ; \
   ln -s /usr/bin/pip3.12 /usr/bin/pip3 ; \

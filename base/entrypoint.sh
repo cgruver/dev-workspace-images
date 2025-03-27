@@ -41,6 +41,12 @@ then
   (echo "if [ -f ${PROJECT_SOURCE}/workspace.rc ]"; echo "then"; echo "  . ${PROJECT_SOURCE}/workspace.rc"; echo "fi") >> ${HOME}/.zshrc
 fi
 
+# Configure Bash shell
+if [ ! -f ${HOME}/.bashrc ]
+then
+  (echo "if [ -f ${PROJECT_SOURCE}/workspace.rc ]"; echo "then"; echo "  . ${PROJECT_SOURCE}/workspace.rc"; echo "fi") > ${HOME}/.bashrc
+fi
+
 # Login to the local image registry
 podman login -u $(oc whoami) -p $(oc whoami -t)  image-registry.openshift-image-registry.svc:5000
 
