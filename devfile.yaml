@@ -31,8 +31,8 @@ components:
       securityContext:
         procMount: Unmasked
   container:
-    # image: image-registry.openshift-image-registry.svc:5000/devspaces-images/cekit-builder:nested 
-    image: quay.io/cgruver0/che/workspace-base:latest
+    image: nexus.clg.lab:5002/dev-spaces/workspace-base:latest
+    # image: quay.io/cgruver0/che/workspace-base:latest
     memoryLimit: 6Gi
     mountSources: true
     env:
