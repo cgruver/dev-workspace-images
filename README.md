@@ -33,6 +33,8 @@ cekit --descriptor images/c-dev.yaml build podman --tag quay.io/cgruver0/che/c-d
 ## Local Nexus
 
 ```bash
+podman build -t nexus.clg.lab:5002/dev-spaces/workspace-base:latest ./base
+
 cekit --descriptor images/cajun-navy.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/cajun-navy:latest
 podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cajun-navy:latest
 
