@@ -1,5 +1,5 @@
 name: dev-tools/quarkus-angular-node20-java21
-from: quay.io/cgruver0/che/workspace-base:latest
+from: nexus.clg.lab:5002/dev-spaces/workspace-base:latest
 version: latest
 packages:
   manager: dnf
