@@ -35,9 +35,18 @@ cekit --descriptor images/c-dev.yaml build podman --tag quay.io/cgruver0/che/c-d
 ```bash
 podman build -t nexus.clg.lab:5002/dev-spaces/workspace-base:latest ./base
 
+podman build -t nexus.clg.lab:5002/dev-spaces/workspace-base:no-userns ./base
+
 cekit --descriptor images/cajun-navy.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/cajun-navy:latest
 podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cajun-navy:latest
 
 cekit --descriptor images/cassandra.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/cassandra-5:latest
 podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cassandra-5:latest
+
+podman build -t quay.io/cgruver0/che/latex-texlive:latest -v ${PWD}/entitlement:/etc/pki/entitlement:Z ./latex 
+
+podman build -t nexus.clg.lab:5002/dev-spaces/latex-texlive:latest -v ${PWD}/entitlement:/etc/pki/entitlement:Z ./latex 
+
+
+cekit --descriptor images/node18.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/node18-dev-tools:latest
 ```

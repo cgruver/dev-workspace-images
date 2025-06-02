@@ -11,6 +11,7 @@
 	],
 	"extensions": {
 		"recommendations": [
+			"dbaeumer.vscode-eslint",
 			"redhat.vscode-yaml",
 			"mhutchie.git-graph",
 			"eamodio.gitlens",

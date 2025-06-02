@@ -1,0 +1,15 @@
+FROM quay.io/cgruver0/che/workspace-base:latest
+
+ENV PATH=${PATH}:/usr/local/texlive/bin/x86_64-linux
+
+USER 0
+
+RUN TEMP_DIR="$(mktemp -d)" ; \
+    curl -fsSL -o ${TEMP_DIR}/install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz ; \
+    mkdir ${TEMP_DIR}/texlive-install ; \
+    tar -xzf ${TEMP_DIR}/install-tl-unx.tar.gz -C ${TEMP_DIR}/texlive-install --strip-components=1 ; \
+    cd ${TEMP_DIR}/texlive-install ; \
+    ls -l ; \
+    perl install-tl --no-interaction -texdir /usr/local/texlive ; \
+    cd - ; \
+    rm -rf ${TEMP_DIR}
