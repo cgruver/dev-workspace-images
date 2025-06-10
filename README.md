@@ -43,8 +43,6 @@ podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cajun-navy:la
 cekit --descriptor images/cassandra.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/cassandra-5:latest
 podman push --cert-dir /public-certs nexus.clg.lab:5002/dev-spaces/cassandra-5:latest
 
-podman build -t quay.io/cgruver0/che/latex-texlive:latest -v ${PWD}/entitlement:/etc/pki/entitlement:Z ./latex 
-
 podman build -t nexus.clg.lab:5002/dev-spaces/latex-texlive:latest -v ${PWD}/entitlement:/etc/pki/entitlement:Z ./latex 
 
 
