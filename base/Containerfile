@@ -36,8 +36,7 @@ RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.n
   chmod -R g=u /etc/subuid /etc/subgid ; \
   # Create Sym Links for OpenShift CLI (Assumed to be retrieved by an init-container)
   ln -s /projects/bin/oc /usr/local/bin/oc ; \
-  ln -s /projects/bin/kubectl /usr/local/bin/kubectl ; \
-  touch /etc/cve-fix
+  ln -s /projects/bin/kubectl /usr/local/bin/kubectl
 
 USER 1000
 WORKDIR ${WORK_DIR}

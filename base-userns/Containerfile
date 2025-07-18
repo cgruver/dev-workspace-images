@@ -3,6 +3,7 @@ FROM registry.access.redhat.com/ubi9-minimal
 ARG USER_HOME_DIR="/projects/home"
 ARG WORK_DIR="/projects"
 ARG INSTALL_PACKAGES="procps-ng openssl git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker ca-certificates python3-pip python3-devel fuse-overlayfs util-linux vim-minimal vim-enhanced"
+ARG USER_ID=1000
 
 ENV HOME=${USER_HOME_DIR}
 ENV BUILDAH_ISOLATION=chroot
@@ -16,19 +17,17 @@ RUN microdnf --disableplugin=subscription-manager install -y ${INSTALL_PACKAGES}
   mkdir -p ${WORK_DIR} ; \
   pip3 install -U podman-compose ; \
   pip3 install -U cekit ; \
-  chgrp -R 0 /home ; \
-  chmod -R g=u /home ${WORK_DIR} ; \
   chmod +x /entrypoint.sh ; \
   # Create User
-  groupadd -g 1000 users
-  useradd -u 1000 -g users -d ${HOME} user
+  groupadd -g ${USER_ID} users
+  useradd -u ${USER_ID} -g users -d ${HOME} user
   # Setup for rootless podman
   setcap cap_setuid+ep /usr/bin/newuidmap ; \
   setcap cap_setgid+ep /usr/bin/newgidmap ; \
-  touch /etc/subgid /etc/subuid ; \
-  chown 0:0 /etc/subgid ; \
-  chown 0:0 /etc/subuid ; \
-  chmod -R g=u /etc/subuid /etc/subgid ; \
+  START_ID=$(( ${USER_ID}+1 )) ; \
+  END_ID=$(( 65536-${START_ID} )) ; \
+  echo "${USER}:${START_ID}:${END_ID}" > /etc/subuid ; \
+  echo "${USER}:${START_ID}:${END_ID}" > /etc/subgid ; \
   # Create Sym Links for OpenShift CLI (Assumed to be retrieved by an init-container)
   ln -s /projects/bin/oc /usr/local/bin/oc ; \
   ln -s /projects/bin/kubectl /usr/local/bin/kubectl

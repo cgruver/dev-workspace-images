@@ -1,0 +1,23 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: storage-workspacefa0cef2e1d1245b2
+  namespace: cgruver-devspaces
+  ownerReferences:
+    - apiVersion: workspace.devfile.io/v1alpha2
+      kind: DevWorkspace
+      name: dev-workspace-images
+      uid: fa0cef2e-1d12-45b2-93ec-fe5effba133b
+      controller: true
+      blockOwnerDeletion: true
+  labels:
+    controller.devfile.io/devworkspace_id: workspacefa0cef2e1d1245b2
+    controller.devfile.io/devworkspace_pvc_type: per-workspace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: qnap-iscsi
+  volumeMode: Filesystem

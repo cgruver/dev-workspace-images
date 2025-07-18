@@ -7,6 +7,9 @@
 		{
 			"name": "enterprise-container-image-management",
 			"path": "/projects/enterprise-container-image-management"
+		},
+		{
+			"path": "../workspace-backup-prototype"
 		}
 	],
 	"extensions": {
