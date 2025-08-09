@@ -9,14 +9,13 @@ ENV BUILDAH_ISOLATION=chroot
 
 COPY --chown=0:0 entrypoint.sh /
 
-RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm ; \
+RUN set -e ; \
+  dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm ; \
   dnf install -y ${INSTALL_PACKAGES} ; \
   dnf update -y ; \
   dnf clean all ; \
   ln -s /usr/bin/pip3.12 /usr/bin/pip3 ; \
   ln -s /usr/bin/pip3.12 /usr/bin/pip ; \
-  ln -s /usr/bin/python3.12 /usr/bin/python3 ; \
-  ln -s /usr/bin/python3.12 /usr/bin/python ; \
   mkdir -p /usr/local/bin ; \
   mkdir -p ${WORK_DIR} ; \
   pip install -U podman-compose ; \
