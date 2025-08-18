@@ -38,7 +38,27 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
 
 * __No one like a noisy neighbor__
   * Implement resource limits and quotas
-  * [Configuring User Namespaces](https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.18/html/administration_guide/configuring-devspaces#configuring-a-user-namespace)
+    * [Link - Configuring User Namespaces](https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.18/html/administration_guide/configuring-devspaces#configuring-a-user-namespace)
+  * Consider setting global defaults for `requests` and `limits` then encourage developers not to override unless necessary.
+    * [Link - DevWorkspace Operator Config](https://github.com/devfile/devworkspace-operator/blob/main/docs/dwo-configuration.md)
+
+    ```yaml
+    apiVersion: controller.devfile.io/v1alpha1
+    kind: DevWorkspaceOperatorConfig
+    metadata:
+      name: devworkspace-operator-config
+      namespace: openshift-operators
+    config:
+      workspace:
+        defaultContainerResources:
+          limits:
+            cpu: 4000m
+            memory: 6Gi
+          requests:
+            cpu: 200m
+            memory: 2Gi
+    ```
+
 * Take care of `etcd` in your cluster.
   * Etcd is the state management heart of your OpenShift cluster.  It is an extremely fast distributed data store.  But, when it gets clogged up with garbage...  it can and will impact the performance of your entire OpenShift cluster.
   * There are two things that you can do to be good custodians of `etcd` in your cluster.
@@ -49,6 +69,11 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
     1. Configure you cluster so that the Operator Lifecycle Manager does not copy Cluster Service Version objects into every managed namespace.
        
        [Disabling Copied CSVs](https://docs.openshift.com/container-platform/4.18/operators/admin/olm-config.html#olm-disabling-copied-csvs_olm-config)
+
+        ```bash
+        oc patch olmconfig cluster --type=merge -p '{"spec": {"features": {"disableCopiedCSVs": true}}}'
+        ```
+
 * Use a `per-workspace` storage strategy instead of `per-user`
   * A `per-workspace` strategy will make more efficient use of storage because PVCs will be lifecycled with workspaces.  The trade-off will be the number of PVC created and destroyed.  Ensure that your storage provisioner can handle the expected load.
 
