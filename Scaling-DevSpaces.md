@@ -77,11 +77,11 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
          namespace: openshift-operators
        config:
          workspace:
-               cleanupCronJob:
-                 dryRun: false
-                 enable: true
-                 retainTime: 2592000
-                 schedule: 0 0 1 * *
+           cleanupCronJob:
+             dryRun: false
+             enable: true
+             retainTime: 2592000
+             schedule: 0 0 1 * *
        ```
 
     1. Configure you cluster so that the Operator Lifecycle Manager does not copy Cluster Service Version objects into every managed namespace.
