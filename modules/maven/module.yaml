@@ -4,6 +4,6 @@ version: v1.0
 description: "Installs Apache Maven"
 args:
 - name: MAVEN_VERSION
-  value: 3.9.9
+  value: 3.9.11
 execute:
 - script: install.sh
