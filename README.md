@@ -47,4 +47,6 @@ podman build -t nexus.clg.lab:5002/dev-spaces/latex-texlive:latest -v ${PWD}/ent
 
 
 cekit --descriptor images/node18.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/node18-dev-tools:latest
+
+cekit --descriptor images/blog.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/blog:latest
 ```

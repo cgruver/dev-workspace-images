@@ -1,0 +1,32 @@
+name: ruby
+version: v1.0
+description: "Installs C/C++ and Ruby Dev Tooling"
+packages:
+  install:
+  - zlib-ng-compat-devel 
+  - libffi-devel 
+  - libstdc++-devel 
+  - glibc-langpack-en 
+  - ca-certificates
+  - autoconf
+  - automake
+  - binutils
+  - gcc
+  - gcc-c++
+  - gdb
+  - glibc-devel
+  - libtool
+  - make
+  - pkgconf
+  - pkgconf-m4
+  - pkgconf-pkg-config
+  - strace
+  - cmake
+  - openssl-devel
+  - curl
+  - wget
+  - libappindicator-gtk3
+  - jq
+  - ruby
+  - ruby-devel
+  - ruby-libs

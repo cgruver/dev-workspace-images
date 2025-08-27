@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi10/ubi:10.0
 
 ARG USER_HOME_DIR="/home/user"
 ARG WORK_DIR="/projects"
-ARG INSTALL_PACKAGES="procps-ng openssl libbrotli git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker ca-certificates python3 python3-pip python3-devel fuse-overlayfs util-linux vim-minimal vim-enhanced ruby"
+ARG INSTALL_PACKAGES="procps-ng openssl libbrotli git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker ca-certificates python3 python3-pip python3-devel fuse-overlayfs util-linux vim-minimal vim-enhanced"
 
 ENV HOME=${USER_HOME_DIR}
 ENV BUILDAH_ISOLATION=chroot
