@@ -11,6 +11,10 @@
 		{
 			"name": "workspace-backup-prototype",
 			"path": "/projects/workspace-backup-prototype"
+		},
+		{
+			"name": "redhat-image-mode-demo",
+			"path": "/projects/redhat-image-mode-demo"
 		}
 	],
 	"extensions": {
