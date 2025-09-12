@@ -1,0 +1,32 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: devspaces-user-resource-limits
+  namespace: devspaces
+  labels:
+    app.kubernetes.io/part-of: che.eclipse.org
+    app.kubernetes.io/component: workspaces-config
+objects:
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: devspaces-user-resource-quota
+  spec:
+    hard:
+      limits.cpu: '16'
+      limits.memory: 64Gi
+      requests.cpu: '2'
+      requests.memory: 8Gi
+- apiVersion: v1
+  kind: LimitRange
+  metadata:
+    name: devspaces-user-resource-limit-range
+  spec:
+    limits:
+      - type: Container
+        default:
+          cpu: '8'
+          memory: 32Gi
+        defaultRequest:
+          cpu: 100m
+          memory: 1Gi

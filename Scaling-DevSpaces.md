@@ -37,11 +37,90 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
   * From nothing to writing code should take less than two minutes with OpenShift Dev Spaces.  One of the worst things that a developer can do with Dev Spaces is to think of it like their local workstation.  Something that must be backed up, updated, customized, protected from harm...  A Dev Spaces workspace is created from configuration stored in a Git repository.  It is very important that developer teams think of their workspace configuration as they think of their code.  If I can recreate a given workspace in less than two minutes, then I don't need to hang on to my personal instance of the workspace indefinitely.  In fact, if I do try to hang on to it over long periods, then configuration drift can be introduced.
   * When a developer is done with a particular work assignment on a project for a while, they should delete the workspace knowing full well that they can get it back in a matter of seconds.
 
+## Centralized Config - Maven Settings, NVM Settings, etc...
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maven-settings-xml
+  namespace: devspaces
+  labels:
+    app.kubernetes.io/part-of: che.eclipse.org
+    app.kubernetes.io/component: workspaces-config
+  annotations:
+    controller.devfile.io/mount-as: subpath
+    controller.devfile.io/mount-path: /projects/maven-settings
+data:
+  settings.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <settings>
+      <mirrors>
+        <mirror>
+          <id>maven-public</id>
+          <name>maven-public</name>
+          <url>https://nexus.my.org:8443/repository/maven-public/</url>
+          <mirrorOf>*</mirrorOf>
+        </mirror>
+      </mirrors>
+      <profiles>
+        <profile>
+          <id>maven-nexus-repo</id>
+          <repositories>
+            <repository>
+              <id>maven-public</id>
+              <name>maven-public</name>
+              <url>https://nexus.my.org:8443/repository/maven-public/</url>
+            </repository>
+          </repositories>
+        </profile>
+      </profiles>
+      <activeProfiles>
+        <activeProfile>maven-nexus-repo</activeProfile>
+      </activeProfiles>
+    </settings>
+```
+
 ## Cluster Resource Management
 
 * __No one like a noisy neighbor__
   * Implement resource limits and quotas
     * [Link - Configuring User Namespaces](https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.18/html/administration_guide/configuring-devspaces#configuring-a-user-namespace)
+
+    ```yaml
+    apiVersion: template.openshift.io/v1
+    kind: Template
+    metadata:
+      name: devspaces-user-resource-limits
+      namespace: devspaces
+      labels:
+        app.kubernetes.io/part-of: che.eclipse.org
+        app.kubernetes.io/component: workspaces-config
+    objects:
+    - apiVersion: v1
+      kind: ResourceQuota
+      metadata:
+        name: devspaces-user-resource-quota
+      spec:
+        hard:
+          limits.cpu: '4'
+          limits.memory: 32Gi
+          requests.cpu: '2'
+          requests.memory: 8Gi
+    - apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: devspaces-user-resource-limit-range
+      spec:
+        limits:
+          - type: Container
+            default:
+              cpu: '2'
+              memory: 16Gi
+            defaultRequest:
+              cpu: 100m
+              memory: 1Gi
+    ```
   * Consider setting global defaults for `requests` and `limits` then encourage developers not to override unless necessary.
     * [Link - DevWorkspace Operator Config](https://github.com/devfile/devworkspace-operator/blob/main/docs/dwo-configuration.md)
 
@@ -55,11 +134,11 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
       workspace:
         defaultContainerResources:
           limits:
-            cpu: 4000m
+            cpu: 2000m
             memory: 6Gi
           requests:
             cpu: 200m
-            memory: 2Gi
+            memory: 1Gi
     ```
 
 * Take care of `etcd` in your cluster.

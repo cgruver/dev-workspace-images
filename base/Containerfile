@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi9:9.5
 
 ARG USER_HOME_DIR="/home/user"
 ARG WORK_DIR="/projects"
-ARG INSTALL_PACKAGES="procps-ng openssl libbrotli git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker ca-certificates python3.12 python3.12-pip python3.12-devel fuse-overlayfs util-linux vim-minimal vim-enhanced"
+ARG INSTALL_PACKAGES="procps-ng openssl libbrotli git tar gzip zip xz unzip which shadow-utils bash zsh vi wget jq podman buildah skopeo podman-docker ca-certificates python python-pip python-devel fuse-overlayfs util-linux vim-minimal vim-enhanced helm kustomize"
 
 ENV HOME=${USER_HOME_DIR}
 ENV BUILDAH_ISOLATION=chroot
@@ -14,8 +14,6 @@ RUN set -e ; \
   dnf install -y ${INSTALL_PACKAGES} ; \
   dnf update -y ; \
   dnf clean all ; \
-  ln -s /usr/bin/pip3.12 /usr/bin/pip3 ; \
-  ln -s /usr/bin/pip3.12 /usr/bin/pip ; \
   mkdir -p /usr/local/bin ; \
   mkdir -p ${WORK_DIR} ; \
   pip install -U podman-compose ; \
