@@ -79,11 +79,40 @@ components:
     env:
     - name: HOME
       value: "/projects/home"
+- name: restore-workspace
+  attributes:
+    container-overrides: 
+      securityContext:
+        procMount: Unmasked
+  container:
+    # image: quay.io/cgruver0/che/workspace-backup:latest
+    image: nexus.clg.lab:5002/dev-spaces/workspace-backup:latest
+    sourceMapping: /projects
+    command:
+      - /bin/bash
+    args:
+      - '-c'
+      - >-
+        set -x; set -e; if [[ -f ${PROJECTS_ROOT}/restore.workspace ]]; then /workspace-recovery.sh --restore; fi
+    memoryRequest: 128Mi
+    memoryLimit: 2Gi
+    cpuRequest: 10m
+    cpuLimit: "1"
+    env:
+      - name: REGISTRY_AUTH_FILE
+        value: /tmp/registry/auth.json
+      - name: DEVWORKSPACE_BACKUP_REGISTRY
+        value: nexus.clg.lab:5002/dev-spaces
 commands:
 - apply:
     component: prep-workspace
     label: Pre Start Prep
   id: prep-workspace
+- apply:
+    component: restore-workspace
+    label: Restore Workspace
+  id: restore-workspace
 events:
   preStart:
+    - restore-workspace
     - prep-workspace

@@ -15,6 +15,10 @@
 		{
 			"name": "redhat-image-mode-demo",
 			"path": "/projects/redhat-image-mode-demo"
+		},
+		{
+			"name": "redhat-image-mode",
+			"path": "/projects/redhat-image-mode"
 		}
 	],
 	"extensions": {
