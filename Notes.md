@@ -133,3 +133,14 @@ spec:
         - "SETUID"
         - "SETGID"
 EOF
+
+## Sharing ssh keys across all workspaces in a namespace
+
+```bash
+SSH_KEY_DIR="$(mktemp -d)" 
+ssh-keygen -t ecdsa -b 521 -N "" -f ${SSH_KEY_DIR}/my_ecdsa
+oc create secret generic ssh-keys --from-file=${SSH_KEY_DIR}/my_ecdsa --from-file=${SSH_KEY_DIR}/my_ecdsa.pub      
+rm -rf ${SSH_KEY_DIR}
+oc annotate secret ssh-keys --overwrite controller.devfile.io/mount-path=${HOME}/.ssh
+oc label secret ssh-keys controller.devfile.io/mount-to-devworkspace=true controller.devfile.io/watch-secret=true
+```

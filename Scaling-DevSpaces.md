@@ -195,3 +195,5 @@ The main considerations -
   Ensure that global Dev Spaces configuration is implemented across multiple clusters
 
 When the primary developer cluster gets sick, or is inaccessible, all a developer has to do is log into an alternate cluster and recreate their workspaces from the SCM.
+
+Follow this issue for status on a potential backup/restore solution - [https://github.com/eclipse-che/che/issues/23570](https://github.com/eclipse-che/che/issues/23570)
