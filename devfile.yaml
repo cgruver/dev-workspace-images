@@ -18,20 +18,6 @@ projects:
       checkoutFrom:
         remote: origin
         revision: main
-  - name: workspace-backup-prototype
-    git:
-      remotes:
-        origin: https://github.com/cgruver/workspace-backup-prototype.git
-      checkoutFrom:
-        remote: origin
-        revision: main
-  - name: redhat-image-mode
-    git:
-      remotes:
-        origin: https://github.com/cgruver/redhat-image-mode-demo.git
-      checkoutFrom:
-        remote: origin
-        revision: main
 components:
 - name: dev-tools
   attributes:

@@ -104,9 +104,9 @@ data:
       spec:
         hard:
           limits.cpu: '4'
-          limits.memory: 32Gi
-          requests.cpu: '2'
-          requests.memory: 8Gi
+          limits.memory: 16Gi
+          requests.cpu: '500m'
+          requests.memory: 4Gi
     - apiVersion: v1
       kind: LimitRange
       metadata:
@@ -116,10 +116,10 @@ data:
           - type: Container
             default:
               cpu: '2'
-              memory: 16Gi
+              memory: 4Gi
             defaultRequest:
               cpu: 100m
-              memory: 1Gi
+              memory: 500Mi
     ```
   * Consider setting global defaults for `requests` and `limits` then encourage developers not to override unless necessary.
     * [Link - DevWorkspace Operator Config](https://github.com/devfile/devworkspace-operator/blob/main/docs/dwo-configuration.md)
@@ -134,11 +134,11 @@ data:
       workspace:
         defaultContainerResources:
           limits:
-            cpu: 2000m
-            memory: 6Gi
+            cpu: 1000m
+            memory: 2Gi
           requests:
-            cpu: 200m
-            memory: 1Gi
+            cpu: 100m
+            memory: 500Mi
     ```
 
 * Take care of `etcd` in your cluster.

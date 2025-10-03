@@ -9,12 +9,11 @@
 			"path": "/projects/enterprise-container-image-management"
 		},
 		{
-			"name": "workspace-backup-prototype",
-			"path": "/projects/workspace-backup-prototype"
+			"path": "../devspaces-example"
 		},
 		{
-			"name": "redhat-image-mode-demo",
-			"path": "/projects/redhat-image-mode-demo"
+			"name": "workspace-backup-prototype",
+			"path": "/projects/workspace-backup-prototype"
 		},
 		{
 			"name": "redhat-image-mode",
