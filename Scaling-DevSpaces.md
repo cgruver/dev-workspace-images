@@ -5,7 +5,7 @@ __RFEs to follow__
 * Backup/Restore of workspace across clusters - 
   * [https://github.com/eclipse-che/che/issues/23570](https://github.com/eclipse-che/che/issues/23570)
   * [https://issues.redhat.com/browse/CRW-9437](https://issues.redhat.com/browse/CRW-9437)
-* Distributing use load across clusters -
+* Distributing user load across clusters -
   * [https://issues.redhat.com/browse/CRW-8595](https://issues.redhat.com/browse/CRW-8595)
 
 ## Managing Container Images
