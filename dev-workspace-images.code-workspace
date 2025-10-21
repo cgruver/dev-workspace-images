@@ -7,17 +7,6 @@
 		{
 			"name": "enterprise-container-image-management",
 			"path": "/projects/enterprise-container-image-management"
-		},
-		{
-			"path": "../devspaces-example"
-		},
-		{
-			"name": "workspace-backup-prototype",
-			"path": "/projects/workspace-backup-prototype"
-		},
-		{
-			"name": "redhat-image-mode",
-			"path": "/projects/redhat-image-mode"
 		}
 	],
 	"extensions": {
