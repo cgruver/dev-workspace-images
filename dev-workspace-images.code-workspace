@@ -7,6 +7,12 @@
 		{
 			"name": "enterprise-container-image-management",
 			"path": "/projects/enterprise-container-image-management"
+		},
+		{
+			"path": "../che-code"
+		},
+		{
+			"path": "../che-operator"
 		}
 	],
 	"extensions": {

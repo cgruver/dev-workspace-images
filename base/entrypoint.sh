@@ -17,23 +17,6 @@ if [ ! -d "${HOME}/.config/containers" ]; then
   fi
 fi
 
-# Create User ID
-if ! whoami &> /dev/null
-then
-  if [ -w /etc/passwd ]
-  then
-    echo "${USER_NAME:-user}:x:$(id -u):0:${USER_NAME:-user} user:${HOME}:/bin/bash" >> /etc/passwd
-    echo "${USER_NAME:-user}:x:$(id -u):" >> /etc/group
-  fi
-fi
-
-# Create subuid/gid entries for the user
-USER=$(whoami)
-START_ID=$(( $(id -u)+1 ))
-END_ID=$(( 65536-${START_ID} ))
-echo "${USER}:${START_ID}:${END_ID}" > /etc/subuid
-echo "${USER}:${START_ID}:${END_ID}" > /etc/subgid
-
 # Configure Z shell
 if [ ! -f ${HOME}/.zshrc ]
 then
@@ -48,6 +31,6 @@ then
 fi
 
 # Login to the local image registry
-podman login -u $(oc whoami) -p $(oc whoami -t)  image-registry.openshift-image-registry.svc:5000
+# podman login -u $(oc whoami) -p $(oc whoami -t) image-registry.openshift-image-registry.svc:5000
 
 exec "$@"

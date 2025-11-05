@@ -1,0 +1,56 @@
+schema_version: 1
+name: dev-base
+version: v1.0
+description: "Installs Base Developer Tools"
+packages:
+  install:
+  - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+  - procps-ng
+  - openssl
+  - git
+  - tar
+  - gzip
+  - zip
+  - xz
+  - unzip
+  - which
+  - shadow-utils
+  - bash
+  - zsh
+  - wget
+  - jq
+  - podman
+  - buildah
+  - skopeo
+  - podman-docker
+  - ca-certificates
+  - python3
+  - python3-pip
+  - python3-devel
+  - fuse-overlayfs
+  - util-linux
+  - vim-minimal
+  - vim-enhanced
+execute:
+- script: install.sh
+envs:
+- name: HOME
+  value: "/home/user"
+- name: BUILDAH_ISOLATION
+  value: chroot
+artifacts:
+- name: entrypoint.sh
+  path: entrypoint.sh
+  target: entrypoint.sh
+  dest: /
+run:
+  entrypoint:
+  - "/usr/libexec/podman/catatonit"
+  - "--"
+  - "/entrypoint.sh"
+  cmd:
+  - "tail"
+  - "-f"
+  - "/dev/null"
+  user: 1000
+  workdir: "/projects"

@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9:9.5
+FROM registry.access.redhat.com/ubi9:9.6
 
 ARG USER_HOME_DIR="/home/user"
 ARG WORK_DIR="/projects"
@@ -18,20 +18,21 @@ RUN set -e ; \
   mkdir -p ${WORK_DIR} ; \
   pip install -U podman-compose ; \
   pip install -U cekit ; \
-  chgrp -R 0 /home ; \
-  chmod -R g=u /home ${WORK_DIR} ; \
   chmod +x /entrypoint.sh ; \
-  chown 0:0 /etc/passwd ; \
-  chown 0:0 /etc/group ; \
-  chmod g=u /etc/passwd /etc/group ; \
-  # Setup for rootless podman
+  #
+  # Setup for root-less podman
+  #
+  mkdir -p ${USER_HOME_DIR} ; \
+  chown -R 1000:1000 ${USER_HOME_DIR} ; \
+  echo "user:x:1000:1000:devspaces user:${USER_HOME_DIR}:/bin/bash" >> /etc/passwd ; \
+  echo "user:x:1000:" >> /etc/group ; \
+  echo "user:1001:64535" >> /etc/subuid ; \
+  echo "user:1001:64535" >> /etc/subgid ; \
   setcap cap_setuid+ep /usr/bin/newuidmap ; \
   setcap cap_setgid+ep /usr/bin/newgidmap ; \
-  touch /etc/subgid /etc/subuid ; \
-  chown 0:0 /etc/subgid ; \
-  chown 0:0 /etc/subuid ; \
-  chmod -R g=u /etc/subuid /etc/subgid ; \
+  #
   # Create Sym Links for OpenShift CLI (Assumed to be retrieved by an init-container)
+  #
   ln -s /projects/bin/oc /usr/local/bin/oc ; \
   ln -s /projects/bin/kubectl /usr/local/bin/kubectl
 
