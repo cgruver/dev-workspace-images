@@ -77,6 +77,8 @@ metadata:
       </svg>
 
 components:
+  - name: checode
+    volume: {}
   - name: che-code-sshd-clg
     container:
       image: quay.io/cgruver0/che/che-code-sshd:clg
