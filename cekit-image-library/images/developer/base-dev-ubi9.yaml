@@ -1,11 +1,11 @@
-name: dev-tools/base-ubi10
-from: registry.access.redhat.com/ubi10:10.0
+name: dev-tools/base-ubi9
+from: registry.access.redhat.com/ubi9:9.6
 version: latest
 packages:
   manager: dnf
   manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
 modules:
   repositories:
-  - path: "../modules"
+  - path: "../../modules"
   install:
   - name: dev-base

@@ -8,6 +8,7 @@ packages:
   - procps-ng
   - openssl
   - git
+  - git-lfs
   - tar
   - gzip
   - zip
