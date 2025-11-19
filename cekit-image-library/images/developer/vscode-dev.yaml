@@ -1,5 +1,5 @@
 name: dev-tools/vscode-dev
-from: nexus.clg.lab:5002/dev-spaces/workspace-base:ubi10
+from: nexus.clg.lab:5002/dev-spaces/workspace-base:fedora
 version: latest
 packages:
   manager: dnf
@@ -8,6 +8,5 @@ modules:
   repositories:
   - path: "../../modules"
   install:
-  - name: nodejs
-  - name: yarn
+  - name: vscode-dev
 

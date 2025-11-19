@@ -4,7 +4,6 @@ version: v1.0
 description: "Installs Base Developer Tools"
 packages:
   install:
-  - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
   - procps-ng
   - openssl
   - git
@@ -18,7 +17,6 @@ packages:
   - shadow-utils
   - bash
   - zsh
-  - wget
   - jq
   - podman
   - buildah
