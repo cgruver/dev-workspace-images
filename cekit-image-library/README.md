@@ -9,4 +9,7 @@ podman push nexus.clg.lab:5002/dev-spaces/workspace-base:fedora
 
 cekit --descriptor images/developer/vscode-dev.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/vscode-dev:latest
 podman push nexus.clg.lab:5002/dev-spaces/vscode-dev:latest
+
+cekit --descriptor images/developer/vscode-builder.yaml build podman --tag nexus.clg.lab:5002/dev-spaces/vscode-builder:latest
+podman push nexus.clg.lab:5002/dev-spaces/vscode-builder:latest
 ```

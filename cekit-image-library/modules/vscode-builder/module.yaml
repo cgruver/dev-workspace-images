@@ -1,5 +1,5 @@
 schema_version: 1
-name: vscode-dev
+name: vscode-builder
 version: v1.0
 description: "Installs Tools for Developer VS Code and Extensions"
 packages:
@@ -8,13 +8,6 @@ packages:
   - make
   - gcc
   - gcc-c++
-  - krb5-devel
-  - libX11-devel
-  - libsecret
-  - libxkbcommon
-  - libxkbfile
-  - libxkbfile-devel
-  - git-subtree
 args:
 - name: NODE_VERSION
   value: v22.21.1
