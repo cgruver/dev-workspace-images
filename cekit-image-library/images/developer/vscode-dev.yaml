@@ -1,5 +1,5 @@
 name: dev-tools/vscode-dev
-from: nexus.clg.lab:5002/dev-spaces/workspace-base:fedora
+from: nexus.clg.lab:5002/dev-spaces/workspace-base:ubi9
 version: latest
 packages:
   manager: dnf
