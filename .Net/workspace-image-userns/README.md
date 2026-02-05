@@ -1,0 +1,1 @@
+# Use this image for OCP 4.20+ if you enable container runtime in Dev Spaces (podman run in the workspace)

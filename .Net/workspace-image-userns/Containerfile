@@ -1,0 +1,37 @@
+FROM registry.access.redhat.com/ubi10/ubi:10.1
+
+ARG USER_HOME_DIR="/home/user"
+ARG WORK_DIR="/projects"
+
+ARG INSTALL_PACKAGES="procps-ng openssl git tar gzip zip xz unzip which shadow-utils bash zsh vi wget curl jq podman buildah skopeo python3-pip python3-devel fuse-overlayfs util-linux vim-minimal vim-enhanced dotnet-hostfxr-9.0 dotnet-runtime-9.0 dotnet-sdk-9.0"
+
+ENV HOME=${USER_HOME_DIR}
+ENV BUILDAH_ISOLATION=chroot
+
+COPY --chown=0:0 entrypoint.sh /
+
+RUN set -e ; \
+    dnf --disableplugin=subscription-manager install -y ${INSTALL_PACKAGES} ; \
+    dnf clean all ; \
+    mkdir -p /usr/local/bin ; \
+    pip3 install podman-compose ; \
+    chmod +x /entrypoint.sh ; \
+    #
+    # Setup for root-less podman
+    #
+    mkdir -p ${USER_HOME_DIR} ; \
+    chown -R 1000:1000 ${USER_HOME_DIR} ; \
+    echo "user:x:1000:1000:devspaces user:${USER_HOME_DIR}:/bin/bash" >> /etc/passwd ; \
+    echo "user:x:1000:" >> /etc/group ; \
+    echo "user:1001:64535" >> /etc/subuid ; \
+    echo "user:1001:64535" >> /etc/subgid ; \
+    setcap cap_setuid+ep /usr/bin/newuidmap ; \
+    setcap cap_setgid+ep /usr/bin/newgidmap ; \
+    # Create Sym Links for OpenShift CLI (Assumed to be retrieved by an init-container)
+    ln -s /projects/bin/oc /usr/local/bin/oc ; \
+    ln -s /projects/bin/kubectl /usr/local/bin/kubectl
+
+USER 1000
+WORKDIR ${WORK_DIR}
+ENTRYPOINT ["/usr/libexec/podman/catatonit","--","/entrypoint.sh"]
+CMD [ "tail", "-f", "/dev/null" ]

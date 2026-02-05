@@ -1,0 +1,1 @@
+# Use this image for OCP version < 4.20
