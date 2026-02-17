@@ -7,10 +7,6 @@
 		{
 			"name": "enterprise-container-image-management",
 			"path": "/projects/enterprise-container-image-management"
-		},
-		{
-			"name": "openshift-custom-web-terminal",
-			"path": "/projects/openshift-custom-web-terminal"
 		}
 	],
 	"extensions": {
