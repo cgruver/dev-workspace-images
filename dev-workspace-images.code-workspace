@@ -7,6 +7,9 @@
 		{
 			"name": "enterprise-container-image-management",
 			"path": "/projects/enterprise-container-image-management"
+		},
+		{	"name": "redhat-cop-devspaces-images",
+			"path": "/projects/redhat-cop-devspaces-images"
 		}
 	],
 	"extensions": {

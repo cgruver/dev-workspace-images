@@ -45,6 +45,49 @@ OpenShift Dev Spaces offers developers a ton of flexibility and freedom.  But, t
   * From nothing to writing code should take less than two minutes with OpenShift Dev Spaces.  One of the worst things that a developer can do with Dev Spaces is to think of it like their local workstation.  Something that must be backed up, updated, customized, protected from harm...  A Dev Spaces workspace is created from configuration stored in a Git repository.  It is very important that developer teams think of their workspace configuration as they think of their code.  If I can recreate a given workspace in less than two minutes, then I don't need to hang on to my personal instance of the workspace indefinitely.  In fact, if I do try to hang on to it over long periods, then configuration drift can be introduced.
   * When a developer is done with a particular work assignment on a project for a while, they should delete the workspace knowing full well that they can get it back in a matter of seconds.
 
+## Setting up Dev Spaces in an opinionated way that is set up to scale -
+
+* Install Dev Spaces Operator
+* Create Initial CheCluster CR and validate function
+* Deploy a self-hosted instance of OpenVSX extension registry
+* Configure OAuth integration with the enterprise Git SCM
+* Configure Resource Caps, Quotas, Limit Ranges in the CheCluster CR and global DevWorkspaceOperatorConfig CR
+* Setup stale workspace pruner
+
+Optional -
+* Configure global workspace configurations, Maven, NVM, Nuget, PyPi, etc... 
+* Configure multi-cluster workspace load
+
+
+1. Install Dev Spaces Operator
+
+   ```bash
+   cat << EOF | oc apply -f -
+   apiVersion: operators.coreos.com/v1alpha1
+   kind: Subscription
+   metadata:
+     name: devspaces
+     namespace: openshift-operators
+   spec:
+     channel: stable 
+     installPlanApproval: Manual
+     name: devspaces 
+     source: redhat-operators 
+     sourceNamespace: openshift-marketplace 
+   EOF
+   ```
+
+   Dev Spaces is a cluster scoped operator.  I recommend installing it into the `openshift-operators` namespaces which is the default for cluster scoped operators.
+
+   I recommend using a `Manual` install plan approval to avoid letting the operator auto update.
+
+   __Note:__ The Dev Spaces Operator will install the dependent DevWorkspace Operator
+
+1. Set up a local instance of an OpenVSX Registry so that you can curate and manage your own VS Code extension catalog.
+
+   
+
+
 ## Centralized Config - Maven Settings, NVM Settings, etc...
 
 ```yaml

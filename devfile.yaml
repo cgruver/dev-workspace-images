@@ -18,6 +18,13 @@ projects:
       checkoutFrom:
         remote: origin
         revision: main
+  - name: redhat-cop-devspaces-images
+    git:
+      remotes:
+        origin: https://github.com/cgruver/redhat-cop-devspaces-images.git
+      checkoutFrom:
+        remote: origin
+        revision: main
 components:
 - name: dev-tools
   container:
